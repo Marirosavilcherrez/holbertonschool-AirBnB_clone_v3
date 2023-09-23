@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Script that starts a Flask web"""
-from flask import Flask, render_template
+from flask import Flask, jsonify
 from models import storage
 from api.v1.views import app_views
 import os
