@@ -2,7 +2,7 @@
 """Script that starts a Flask web"""
 from flask import Flask, render_template
 from models import storage
-from api.v1.views import app_view
+from api.v1.views import app_views
 
 
 app = Flask(__name__)
