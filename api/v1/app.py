@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """Script that starts a Flask web"""
+from api.v1.views import app_views
 from flask import Flask, jsonify
 from models import storage
-from api.v1.views import app_views
-import os
+from os import getenv
 
 
 app = Flask(__name__)
@@ -17,4 +17,6 @@ def close_route(error):
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5001, threaded=True)
+    host = getenv("HBNB_API_HOST") if getenv("HBNB_API_HOST") else "0.0.0.0"
+    port = getenv("HBNB_API_PORT") if getenv("HBNB_API_PORT") else 5000
+    app.run(host=host, port=port, threaded=True)
