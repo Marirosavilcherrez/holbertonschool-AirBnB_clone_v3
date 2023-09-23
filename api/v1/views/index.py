@@ -4,13 +4,6 @@ import app_views from api.v1.views
 from flask import jsonify
 
 @app_views.route("/status", methods=["GET"], strict_slashes=False)
-def api_status():
+def api_tatus():
     """a function to return api status"""
-    data = {
-        "status": "OK"
-    }
-
-    resp = jsonify(data)
-    resp.status_code = 200
-
-    return resp
+    return jsonify({"status": "OK"})
