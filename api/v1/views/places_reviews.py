@@ -55,8 +55,7 @@ def post_review(review_id):
     if not place:
         abort(404)
 
-    data = request.get_json()
-    if 'user_id' not in data:
+    if 'user_id' not in request.get_json():
         abort(400, description="Missing user_id")
 
     user = storage.get(User, data['user_id'])
@@ -67,7 +66,7 @@ def post_review(review_id):
         abort(400, description="Missing text")
 
     data = request.get_json()
-    instance = Review(review_id=review_id, **data)
+    instance = Review(**data)
     instance.save()
     return make_response(jsonify(instance.to_dict()), 201)
 
