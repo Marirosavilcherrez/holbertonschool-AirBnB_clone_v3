@@ -114,6 +114,7 @@ class TestFileStorage(unittest.TestCase):
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
 
+
 class TestNewMethodsDb(unittest.TestCase):
     """Test get and count methods in db_storage"""
 
@@ -136,4 +137,3 @@ class TestNewMethodsDb(unittest.TestCase):
         self.assertEqual(id, get_obj.id)
         self.assertIsInstance(get_obj, State)
         self.assertEqual(type(id), str)
-
