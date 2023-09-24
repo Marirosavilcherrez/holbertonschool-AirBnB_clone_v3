@@ -8,7 +8,8 @@ from models.user import User
 from models import storage
 
 
-@app_views.route('/cities/<city_id>/places', methods=['GET'], strict_slashes=False)
+@app_views.route('/cities/<city_id>/places',
+                 methods=['GET'], strict_slashes=False)
 def get_places(city_id):
     """retrives the list of places"""
     city = storage.get(City, city_id)
@@ -43,7 +44,8 @@ def delete_place(place_id):
     return make_response(jsonify({}, 200))
 
 
-@app_views.route('/cities/<city_id>/places', methods=['POST'], strict_slashes=False)
+@app_views.route('/cities/<city_id>/places',
+                 methods=['POST'], strict_slashes=False)
 def post_place(city_id):
     """create a place"""
     if not request.get_json():
@@ -89,4 +91,4 @@ def put_place(place_id):
         if key not in ignore:
             setattr(place, key, value)
     storage.save()
-    return make_response(jsonify(place.to_dict()), 200)
+    return jsonify(place.to_dict()), 200
