@@ -81,7 +81,7 @@ def put_place(place_id):
 
     ignore = ['id', 'user_id', 'city_id', 'created_at', 'updated_at']
 
-    user = storage.get(Place, place_id)
+    place = storage.get(Place, place_id)
 
     if not place:
         abort(404)
