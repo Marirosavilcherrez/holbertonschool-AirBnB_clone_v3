@@ -52,7 +52,7 @@ class FileStorage:
         """counts objects in the database"""
         my_dict = self.all(cls)
         return (len(my_dict))
-    
+
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
         json_objects = {}
