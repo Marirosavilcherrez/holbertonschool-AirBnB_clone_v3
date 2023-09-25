@@ -97,8 +97,7 @@ class TestNewMethodsDb(unittest.TestCase):
         state = State(name="California")
         state.save()
         obj_count = models.storage.count(State)
-        obj_second_count = models.storage.count(State)
-        self.assertEqual(obj_count + 1, obj_second_count)
+        self.assertEqual(obj_count, 1)
 
     def test_get(self):
         """testing for get method"""
