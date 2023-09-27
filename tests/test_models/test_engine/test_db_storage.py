@@ -93,7 +93,6 @@ class TestNewMethodsDb(unittest.TestCase):
 
     @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db',
                      "not testing db storage")
-    
     def test_get(self):
         """Test that get returns specific object, or none"""
         new_state = State(name="New York")
