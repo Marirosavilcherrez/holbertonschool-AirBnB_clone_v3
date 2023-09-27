@@ -91,22 +91,29 @@ class TestFileStorage(unittest.TestCase):
 class TestNewMethodsDb(unittest.TestCase):
     """Test get and count methods in db_storage"""
 
-    def test_count(self):
-        """testing for count method"""
-
-        state = State(name="California")
-        state.save()
-        obj_count = models.storage.count(State)
-        obj_second_count = models.storage.count(State)
-        self.assertEqual(obj_count + 1, obj_second_count)
-
+    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db',
+                     "not testing db storage")
+    
     def test_get(self):
-        """testing for get method"""
+        """Test that get returns specific object, or none"""
+        new_state = State(name="New York")
+        new_state.save()
+        new_user = User(email="bob@foobar.com", password="password")
+        new_user.save()
+        self.assertIs(new_state, models.storage.get("State", new_state.id))
+        self.assertIs(None, models.storage.get("State", "blah"))
+        self.assertIs(None, models.storage.get("blah", "blah"))
+        self.assertIs(new_user, models.storage.get("User", new_user.id))
 
-        state = State(name="New York")
-        state.save()
-        id_str = str(state.id)
-        get_obj = models.storage.get(State, id_str)
-        self.assertEqual(id_str, get_obj.id)
-        self.assertIsInstance(get_obj, State)
-        self.assertEqual(type(id_str), str)
+    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db',
+                     "not testing db storage")
+    def test_count(self):
+        """test that new adds an object to the database"""
+        initial_count = models.storage.count()
+        self.assertEqual(models.storage.count("Blah"), 0)
+        new_state = State(name="California")
+        new_state.save()
+        new_user = User(email="glen@foobar.com", password="password")
+        new_user.save()
+        self.assertEqual(models.storage.count("State"), initial_count + 1)
+        self.assertEqual(models.storage.count(), initial_count + 2)
